@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalhe de Vendas</title>
+  </head>
+  <body>
+    {% if venda %}
+      <h1>Venda No {{ venda.id }}</h1>
+
+      <ul>
+        <li>
+          <b>Funcionário</b>: {{ venda.funcionario.nome }}
+        </li>
+        <li>
+          <b>Produto</b>: {{ venda.produto.nome }} R$ {{ venda.produto.preco }}
+        </li>
+        <li>
+          <b>Cadastrado em:</b>: {{ venda.data_hora }}
+        </li>
+      </ul>
+    {% else %}
+      <h1>Venda não localizada</h1>
+    {% endif %}
+  </body>
+</html>

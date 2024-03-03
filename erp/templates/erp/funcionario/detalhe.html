@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhe Funcionário</title>
+</head>
+<body>
+{% if funcionario %}
+<h1>Detalhe do funcionário {{ funcionario.nome }}</h1>
+
+<ul>
+    <li>Nome: {{ funcionario.nome }}</li>
+    <li>Sobrenome: {{ funcionario.sobrenome }}</li>
+    <li>CPF: {{ funcionario.cpf }}</li>
+    <li>E-mail: {{ funcionario.email_corporativo }}</li>
+    <li>Remuneração: {{ funcionario.remuneracao }}</li>
+</ul>
+{% else %}
+<h1>Não existe</h1>
+{% endif%}
+</body>
+</html>

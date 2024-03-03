@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apagar Produto</title>
+  </head>
+  <body>
+    {% if produto %}
+      <h1>Apagar Produto {{ produto.nome }}</h1>
+      <form method="post">
+        {% csrf_token %}Confirmar a exclusão do {{ produto.nome }}?
+
+        <button type="submit">Apagar</button>
+      </form>
+    {% else %}
+      <h1>Não encontrado</h1>
+    {% endif %}
+  </body>
+</html>
