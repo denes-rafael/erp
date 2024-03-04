@@ -7,8 +7,11 @@
   </head>
   <body>
     <h1>Atualizar Produto</h1>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
+      {% if produto.imagem %}
+        <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" width="200px"/>
+      {% endif %}
       {{ form }}
       <button type="submit">Salvar</button>
     </form>

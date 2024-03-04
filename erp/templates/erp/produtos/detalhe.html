@@ -8,7 +8,9 @@
   <body>
     {% if produto %}
       <h1>Detalhe do Produto</h1>
-
+      {% if produto.imagem %}
+        <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" width="200px" />
+      {% endif %}
       <ul>
         <li>
           <b>Nome</b>: {{ produto.nome }}
