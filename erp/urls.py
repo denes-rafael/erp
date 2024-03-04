@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf.urls.static import static
+from core import settings
 from erp.views import *
 
 app_name = "erp"
@@ -28,3 +30,6 @@ urlpatterns = [
     path("vendas/<pk>/detalhe/", VendaDetailView.as_view(), name="detalhe_venda"),
 
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

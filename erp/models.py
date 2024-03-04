@@ -16,6 +16,7 @@ class Produto(models.Model):
     nome = models.CharField(max_length=30, null=False, blank=False)
     descricao = models.CharField(max_length=255, null=False, blank=False)
     preco = models.DecimalField(max_digits=7, decimal_places=2, null=False, blank=False)
+    imagem = models.ImageField(null=True, blank=True, upload_to='produtos')
    
     def __str__(self):
         return f"ID {self.id} - {self.nome} (Preço: {self.preco})"
