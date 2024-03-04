@@ -9,6 +9,15 @@ urlpatterns = [
     # path("", home),
     path("", HomeView.as_view(), name="home"),
     #
+    # Dashboard
+    path("dashboard/", DashboardView.as_view(), name="dashboard"),
+    #
+    # Login
+    path("login/", ErpLoginView.as_view(), name="login"),
+    #
+    # Logout
+    path("logout/", ErpLogoutView.as_view(), name="logout"),
+    #
     # Funcionários
     path("funcionarios/", lista_funcionarios),
     path("funcionarios/novo/", cria_funcionario),
@@ -28,7 +37,6 @@ urlpatterns = [
     path("vendas/", VendaListView.as_view(), name="lista_venda"),
     path("vendas/novo/", VendaCreateView.as_view(), name="cria_venda"),
     path("vendas/<pk>/detalhe/", VendaDetailView.as_view(), name="detalhe_venda"),
-
 ]
 
 if settings.DEBUG:

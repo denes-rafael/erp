@@ -1,3 +1,4 @@
+from django.contrib.auth.views import LoginView, LogoutView
 from django.db.models import QuerySet
 from django.db.models.base import Model as Model
 from django.shortcuts import render
@@ -165,4 +166,18 @@ class VendaDetailView(DetailView):
         try:
             return super().get_object(queryset)
         except Http404:
-            return None    
+            return None
+
+
+class ErpLoginView(LoginView):
+    template_name = "erp/login.html"
+    success_url = reverse_lazy("erp:dashboard")
+    redirect_authenticated_user = True
+
+
+class ErpLogoutView(LogoutView):
+    template_name = "erp/logout.html"
+
+
+class DashboardView(TemplateView):
+    template_name = "erp/dashboard.html"
