@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.db.models import QuerySet
 from django.db.models.base import Model as Model
@@ -27,6 +29,7 @@ class HomeView(TemplateView):
     template_name = "erp/index.html"
 
 
+@login_required
 def cria_funcionario(requisicao: HttpRequest):
     if requisicao.method == "GET":
         form = FuncionarioForm()
@@ -53,6 +56,7 @@ def cria_funcionario(requisicao: HttpRequest):
             return HttpResponseRedirect(redirect_to="/")
 
 
+@login_required
 def lista_funcionarios(requisicao: HttpRequest):
     if requisicao.method == "GET":
         funcionarios = Funcionario.objects.all()
@@ -63,6 +67,7 @@ def lista_funcionarios(requisicao: HttpRequest):
         )
 
 
+@login_required
 def busca_funcionario_id(requisicao: HttpRequest, pk: int):
     if requisicao.method == "GET":
 
@@ -78,6 +83,7 @@ def busca_funcionario_id(requisicao: HttpRequest, pk: int):
         )
 
 
+@login_required
 def atualiza_funcionario(requisicao: HttpRequest, pk: int):
     if requisicao.method == "GET":
         funcionario = Funcionario.objects.get(pk=pk)
@@ -99,27 +105,27 @@ def atualiza_funcionario(requisicao: HttpRequest, pk: int):
             return HttpResponseRedirect(redirect_to=f"/funcionarios/{pk}/detalhe")
 
 
-class ProdutoCreateView(CreateView):
+class ProdutoCreateView(LoginRequiredMixin, CreateView):
     template_name = "erp/produtos/novo.html"
     model = Produto
     form_class = ProdutoForm
     success_url = reverse_lazy("erp:home")
 
 
-class ProdutoListView(ListView):
+class ProdutoListView(LoginRequiredMixin, ListView):
     model = Produto
     template_name = "erp/produtos/lista.html"
     context_object_name = "produtos"
 
 
-class ProdutoUpdateView(UpdateView):
+class ProdutoUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "erp/produtos/atualiza.html"
     model = Produto
     form_class = ProdutoForm
     success_url = reverse_lazy("erp:lista_produto")
 
 
-class ProdutoDetailView(DetailView):
+class ProdutoDetailView(LoginRequiredMixin, DetailView):
     template_name = "erp/produtos/detalhe.html"
     model = Produto
     context_object_name = "produto"
@@ -131,7 +137,7 @@ class ProdutoDetailView(DetailView):
             return None
 
 
-class ProdutoDeleteView(DeleteView):
+class ProdutoDeleteView(LoginRequiredMixin, DeleteView):
     model = Produto
     template_name = "erp/produtos/apaga.html"
     context_object_name = "produto"
@@ -144,20 +150,20 @@ class ProdutoDeleteView(DeleteView):
             return None
 
 
-class VendaCreateView(CreateView):
+class VendaCreateView(LoginRequiredMixin, CreateView):
     template_name = "erp/vendas/novo.html"
     model = Venda
     success_url = reverse_lazy("erp:home")
     fields = ["funcionario", "produto"]
 
 
-class VendaListView(ListView):
+class VendaListView(LoginRequiredMixin, ListView):
     model = Venda
     template_name = "erp/vendas/lista.html"
     context_object_name = "vendas"
 
 
-class VendaDetailView(DetailView):
+class VendaDetailView(LoginRequiredMixin, DetailView):
     template_name = "erp/vendas/detalhe.html"
     model = Venda
     context_object_name = "venda"
@@ -179,5 +185,5 @@ class ErpLogoutView(LogoutView):
     template_name = "erp/logout.html"
 
 
-class DashboardView(TemplateView):
+class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "erp/dashboard.html"
